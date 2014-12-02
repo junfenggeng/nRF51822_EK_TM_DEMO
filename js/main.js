@@ -31,11 +31,13 @@ $(function(){
 		    settings : "low latency"
 	    };
 
+        $('#device-list').html("searching");
+
 	    $.getJSON(url,params,function(data){
 		    var devices = data['device_list'];
 
             if (devices.length == 0) {
-                $('#device-list').html('Empty List');
+                $('#device-list').html('no device found');
                 return;
             }
 
@@ -46,7 +48,7 @@ $(function(){
                 var addr = device.address;
                 var rssi = device.RSSI;
 
-                html_str += '<label for="device-' + i + '">' + name + ' ' + addr + ' ' + rssi + 'db ' + '</label><input type="radio" name="device" id="device-' + i + '" value="' + i + '"></input>'
+                html_str += '<label for="device-' + i + '">' + name + ' ' + addr + ' ' + '</label><input type="radio" name="device" id="device-' + i + '" value="' + i + '"></input>'
 		    }
 
             $('#device-list').html(html_str);
@@ -81,7 +83,7 @@ $(function(){
 	    if(g_device != 0) {
 	        var params = {
 	            address : g_device.address,
-	            resource : "/sensors/buzzer",
+	            resource : "/peripherals/buzzer",
 	            operation : "write",
 				value : "5s"
 	        };
